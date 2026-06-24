@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/chat.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <h1><i class="fas fa-robot"></i> AI Chatbot</h1>
+        <div class="header-info">
+          <span id="active-provider-label" class="provider-label"
+            >Ollama (Local)</span
+          >
+          <span class="msg-count" id="msg-count">0 pesan</span>
+        </div>
+      </header>
+
+      <!-- Provider Selection -->
+      <div class="provider-selector">
+        <button class="provider-btn active" data-provider="ollama">
+          <i class="fas fa-server"></i> Ollama
+        </button>
+        <button class="provider-btn" data-provider="gemini">
+          <i class="fab fa-google"></i> Gemini
+        </button>
+        <button class="provider-btn" data-provider="openai">
+          <i class="fas fa-brain"></i> OpenAI
+        </button>
+        <button class="provider-btn" data-provider="deepseek">
+          <i class="fas fa-database"></i> DeepSeek
+        </button>
+      </div>
+
+      <!-- Warning -->
+      <div id="api-warning"></div>
+
+      <!-- Messages Area -->
+      <div class="messages" id="messages">
+        <div class="msg msg-ai">
+          <div class="msg-avatar"><i class="fas fa-robot"></i></div>
+          <div class="msg-bubble">
+            <p>
+              👋 Halo! Saya AI chatbot menggunakan
+              <strong>Ollama</strong>.<br />
+              Saya 100% gratis dan berjalan di komputer Anda.
+            </p>
+            <span class="msg-time" id="welcome-time"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typing Indicator -->
+      <div class="typing" id="typing">
+        <div class="typing-dots"><span></span><span></span><span></span></div>
+        <span id="typing-label" class="typing-label">Sedang mengetik...</span>
+      </div>
+
+      <!-- Input Area -->
+      <div class="input-area">
+        <div class="system-prompt-area">
+          <details>
+            <summary>
+              <i class="fas fa-cog"></i> System Prompt (opsional)
+            </summary>
+            <textarea
+              id="system-prompt"
+              placeholder="Contoh: Kamu adalah asisten AI yang ramah..."
+              rows="2"
+            ></textarea>
+          </details>
+        </div>
+        <div class="input-wrapper">
+          <textarea
+            id="user-input"
+            rows="1"
+            placeholder="Ketik pesan... (Ctrl+Enter untuk kirim)"
+            onkeydown="handleKey(event)"
+          ></textarea>
+          <button id="send-btn" onclick="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+        <div class="input-actions">
+          <button id="clear-btn" class="clear-btn">
+            <i class="fas fa-trash"></i> Hapus Percakapan
+          </button>
+          <span class="input-hint">Shift+Enter untuk new line</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Set welcome time
+      document.getElementById("welcome-time").textContent =
+        new Date().toLocaleTimeString("id-ID", {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+    </script>
+    <script src="/js/chat.js"></script>
+  </body>
+</html>
