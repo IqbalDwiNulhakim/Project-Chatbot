@@ -81,5 +81,4 @@ Kamu tidak harus mengisi semua API key di file .env. Cukup isi yang ingin kamu p
 
 ## Penulis
 
-Muhammad Iqbal
-Informatika - Universitas Jenderal Achmad Yani
+Iqbal Dwi Nulhakim
