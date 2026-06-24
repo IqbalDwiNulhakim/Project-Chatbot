@@ -1,169 +1,87 @@
-# 🤖 AI Chatbot — Multi-Provider
+# AI Chatbot - Multi-Provider
 
-Chatbot AI berbasis web yang mendukung **4 provider AI** dalam satu aplikasi: **Google Gemini · OpenAI · DeepSeek · Ollama (lokal)**. Dibangun dengan Node.js + Express.js + EJS.
+Chatbot AI berbasis web yang mendukung 4 provider sekaligus dalam satu aplikasi: Google Gemini, OpenAI, DeepSeek, dan Ollama (Lokal). Aplikasi ini dibuat menggunakan Node.js, Express.js, dan template engine EJS.
 
-> **Contoh di project ini menggunakan Ollama** — berjalan 100% lokal, gratis, tanpa perlu internet atau biaya API.
-
----
-
-## ✨ Fitur Utama
-
-- 🔄 **Multi-provider** — ganti provider AI (Gemini, OpenAI, DeepSeek, Ollama) langsung dari sidebar tanpa reload
-- 💬 **Multi-turn conversation** — AI mengingat seluruh konteks percakapan dalam satu sesi
-- 🎯 **System prompt kustom** — atur kepribadian atau peran AI (misal: asisten toko, tutor, customer service)
-- 🗑️ **Hapus percakapan** — reset riwayat chat dengan satu klik
-- ⌨️ **Keyboard shortcut** — `Enter` untuk kirim, `Shift+Enter` untuk baris baru
-- 🌙 **Dark mode UI** — tampilan gelap yang nyaman
-- ❌ **Error handling** — pesan error jelas jika API key salah atau provider tidak tersedia
+Secara default, contoh di proyek ini menggunakan Ollama supaya bisa berjalan 100% lokal di komputer sendiri, gratis, dan tanpa perlu koneksi internet atau API key.
 
 ---
 
-## 📁 Struktur Proyek
+## Fitur Utama
 
-```
-project2-chatbot/
-│
-├── app.js                  # Entry point — server Express + route POST /api/chat
-│
-├── views/
-│   └── index.ejs           # Halaman utama chatbot (sidebar + chat window)
-│
-├── public/
-│   ├── css/
-│   │   └── chat.css        # Stylesheet — dark mode UI
-│   └── js/
-│       └── chat.js         # Logic frontend: kirim pesan, render bubble, ganti provider
-│
-├── .env.example            # Template konfigurasi (salin menjadi .env)
-├── .gitignore              # Mengecualikan .env dan node_modules
-├── package.json
-└── README.md
-```
+- Multi-provider: Bisa ganti AI (Gemini, OpenAI, DeepSeek, Ollama) langsung dari sidebar tanpa muat ulang halaman.
+- Pengingat konteks: AI ingat seluruh alur obrolan sebelumnya dalam satu sesi chat.
+- Custom system prompt: Bisa ganti peran atau kepribadian AI lewat sidebar (misal: jadi tutor, admin toko, dll).
+- Reset chat: Hapus riwayat obrolan secara instan dengan satu klik.
+- Shortcut keyboard: Tekan Enter untuk mengirim pesan, dan Shift+Enter untuk membuat baris baru.
+- Interface dark mode: Tampilan gelap yang ramah di mata.
+- Pesan error jelas: Muncul notifikasi informatif kalau API key salah atau service lokal mati.
 
 ---
 
-## 🖥️ Prasyarat
+## Prasyarat Sistem
 
-| Software | Versi Minimum | Cara Cek |
-|----------|--------------|----------|
-| Node.js  | v18+         | `node -v` |
-| npm      | v8+          | `npm -v` |
-
-Untuk provider **Ollama** (lokal), tambahan:
-
-| Software | Keterangan | Link |
-|----------|------------|------|
-| Ollama   | Runtime model AI lokal | https://ollama.ai/download |
+1. Node.js (Minimal versi 18)
+2. npm (Minimal versi 8)
+3. Ollama Runtime (Khusus jika ingin pakai AI lokal tanpa API key)
 
 ---
 
-## 🚀 Instalasi & Menjalankan
+## Panduan Instalasi dan Menjalankan
 
-### 1. Clone repositori
+1. Clone repositori ini:
+   git clone https://github.com/USERNAME/project2-chatbot.git
+   cd project2-chatbot
 
-```bash
-git clone https://github.com/USERNAME/project2-chatbot.git
-cd project2-chatbot
-```
+2. Jalankan install dependensi:
+   npm install
 
-### 2. Install dependensi
+3. Buat file .env:
+   Salin file .env.example menjadi .env (bisa pakai perintah "cp .env.example .env" di Linux/Mac atau "copy .env.example .env" di Windows).
 
-```bash
-npm install
-```
+4. Jalankan server:
+   npm start
 
-| Package | Fungsi |
-|---------|--------|
-| `express` | Web framework |
-| `ejs` | Template engine |
-| `node-fetch` | HTTP client untuk memanggil API AI |
-| `body-parser` | Parse JSON dari request frontend |
-| `dotenv` | Membaca konfigurasi dari file `.env` |
-
-### 3. Buat file `.env`
-
-```bash
-# Linux / macOS
-cp .env.example .env
-
-# Windows (Command Prompt)
-copy .env.example .env
-```
-
-Kemudian buka file `.env` dan isi API key sesuai provider yang digunakan (lihat bagian [Cara Mendapatkan API Key](#-cara-mendapatkan-api-key)).
-
-### 4. Jalankan server
-
-```bash
-npm start
-```
-
-Output yang diharapkan:
-
-```
-🤖 Chatbot running at http://localhost:3001
-```
-
-### 5. Buka browser
-
-```
-http://localhost:3001
-```
+5. Buka browser dan akses:
+   http://localhost:3001
 
 ---
 
-## 🦙 Contoh Penggunaan dengan Ollama (Lokal)
+## Cara Pakai dengan Ollama (Lokal & Gratis)
 
-Berikut adalah cara menjalankan chatbot ini **tanpa API key berbayar** menggunakan Ollama.
-
-### Step 1 — Install Ollama
-
-**Linux:**
-```bash
-curl -fsSL https://ollama.ai/install.sh | sh
-```
-
-**macOS:**
-```bash
-brew install ollama
-```
-
-**Windows:**
-Download installer dari https://ollama.ai/download dan jalankan.
+1. Download dan install Ollama dari situs resminya.
+2. Buka terminal komputer, lalu download model Llama 3 dengan perintah:
+   ollama pull llama3
+3. Jalankan service Ollama di komputer:
+   ollama serve
+4. Buka file .env proyek ini, lalu pastikan settingannya seperti ini:
+   PORT=3001
+   OLLAMA_URL=http://localhost:11434/v1
+   OLLAMA_MODEL=llama3
+5. Buka aplikasi di browser, klik tombol "Ollama (Local)" di sidebar, dan silakan mulai chatting.
 
 ---
 
-### Step 2 — Download model llama3
+## Panduan Mengisi API Key Lain
 
-```bash
-ollama pull llama3
-```
+Kamu tidak harus mengisi semua API key di file .env. Cukup isi yang ingin kamu pakai saja. Yang kosong tidak akan bikin aplikasi error, hanya saja fiturnya tidak bisa dipilih di web.
 
-Proses download sekitar 4.7 GB (hanya perlu dilakukan sekali). Tunggu hingga selesai:
-
-```
-pulling manifest
-pulling 6a0746a1ec1a...  100% ▕████████████████▏ 4.7 GB
-pulling 4fa551d4f938...  100% ▕████████████████▏  12 KB
-verifying sha256 digest
-writing manifest
-success
-```
-
-Verifikasi model sudah tersedia:
-
-```bash
-ollama list
-# NAME            ID              SIZE    MODIFIED
-# llama3:latest   365c0bd3c000    4.7 GB  2 minutes ago
-```
-
-> Model lain yang bisa dicoba: `mistral`, `phi3`, `gemma2`, `codellama`
+- Google Gemini: Ambil di Google AI Studio, masukkan ke GEMINI_API_KEY.
+- OpenAI: Ambil di platform OpenAI, masukkan ke OPENAI_API_KEY.
+- DeepSeek: Ambil di platform DeepSeek, masukkan ke DEEPSEEK_API_KEY.
 
 ---
 
-### Step 3 — Jalankan Ollama service
+## Solusi Masalah (Troubleshooting)
 
+- Error "Ollama tidak bisa dihubungi": Pastikan kamu sudah ketik "ollama serve" di terminal dan biarkan terminal itu tetap terbuka selama aplikasi berjalan.
+- Error "GEMINI_API_KEY tidak diset": Pastikan nama file sudah benar ".env" (bukan .env.example lagi) dan jangan beri spasi di sekitar tanda sama dengan (=).
+- Port 3001 sudah dipakai: Buka file .env, lalu ganti PORT=3001 menjadi angka lain, misalnya PORT=3005.
+
+---
+
+## Penulis
+
+<<<<<<< HEAD
 ```bash
 ollama serve
 ```
@@ -452,4 +370,9 @@ PORT=3002
 Informatika · Universitas Jenderal Achmad Yani
 #   P r o j e c t - C h a t b o t  
  #   P r o j e c t - C h a t b o t  
+ 
+=======
+Iqbal Dwi Nulhakim
+>>>>>>> 853af79a41b4b54fc0fa896b95f829165c55ccbe
+#   P r o j e c t - C h a t b o t  
  
